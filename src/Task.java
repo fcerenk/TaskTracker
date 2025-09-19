@@ -67,6 +67,60 @@ public class Task {
 
     @Override
     public String toString() {
-        return "[" + id + "] " + description + " (" + status + ")";
+        return "*" + id + "* " + description + " (" + status + ")";
+    }
+
+
+    //convert list of task to json string
+    public String toJson() {
+        return String.format(
+                "{"
+                        + "\"id\":%d,"
+                        + "\"description\":\"%s\","
+                        + "\"status\":\"%s\","
+                        + "\"createdAt\":\"%s\","
+                        + "\"updatedAt\":\"%s\""
+                        + "}",
+                id,description,status,createdAt,updatedAt);
+    }
+
+
+    //convert json string to object of Task
+    public static Task fromJson(String json) {
+        json = json.replace("{", "").replace("}", "").replace("\"", "");
+        String[] parts = json.split(",");
+        int id = 0;
+        String description = "";
+        Status status = Status.TODO;
+        LocalDate createdAt = LocalDate.now();
+        LocalDate updatedAt = LocalDate.now();
+        for (String part : parts) {
+            String[] partParts = part.split(":");
+            switch (partParts[0].trim()) {
+                case "id":
+                    id = Integer.parseInt(partParts[1].trim()); //integer to string
+                    break;
+                case "description":
+                    description = partParts[1].trim();
+                    break;
+                case "status":
+                    status = Status.valueOf(partParts[1].trim());   //enum valueof
+                    break;
+                case "createdAt":
+                    createdAt = LocalDate.parse(partParts[1].trim());
+                    break;
+                case "updatedAt":
+                    updatedAt = LocalDate.parse(partParts[1].trim());
+                    break;
+
+            }
+        }
+
+        Task task = new Task(id, description);
+        task.setStatus(status);
+        task.setCreatedAt(createdAt);
+        task.setUpdatedAt(updatedAt);
+        return task;
+
     }
 }

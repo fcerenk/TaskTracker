@@ -5,12 +5,13 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
+
         System.out.println("----Welcome task tracker!----");
         System.out.print(" Please enter the name of the task: ");
 
         TaskManager manager = new TaskManager();
+
+        manager.loadTasksFromFile();
         Scanner scanner = new Scanner(System.in);
         int nextId = 1;
         while (true) {
@@ -30,6 +31,7 @@ public class Main {
                     }
                     Task newTask = new Task(nextId++, otherPart);
                     manager.addTask(newTask);
+
                     break;
                 case "delete":
                     if (otherPart.isBlank()) {
@@ -39,6 +41,7 @@ public class Main {
                     try {
                         int deleteId = Integer.parseInt(otherPart) - 1;
                         manager.removeTask(deleteId);
+
                     } catch (NumberFormatException e) {
                         System.out.println("Invalid task id: " + otherPart);
                     } catch (IndexOutOfBoundsException e) {
@@ -57,6 +60,7 @@ public class Main {
                         int upIndex = Integer.parseInt(splittedCommand[1]) - 1;
                         String newDesc = String.join(" ", Arrays.copyOfRange(splittedCommand, 2, splittedCommand.length));
                         manager.updateDescription(upIndex, newDesc);
+
                     } catch (NumberFormatException e) {
                         System.out.println("Invalid task id: " + splittedCommand[1]);
                     } catch (IndexOutOfBoundsException e) {
@@ -95,7 +99,7 @@ public class Main {
 
                     break;
                 case "exit":
-                    System.out.println("Exiting task tracker!");
+                    System.out.println("Good Bye!");
                     return;
                 default:
                     System.out.println("Unknown command: " + action);
