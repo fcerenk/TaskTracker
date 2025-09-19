@@ -81,7 +81,7 @@ public class Task {
                         + "\"createdAt\":\"%s\","
                         + "\"updatedAt\":\"%s\""
                         + "}",
-                id,description,status,createdAt,updatedAt);
+                id, description, status, createdAt, updatedAt);
     }
 
 

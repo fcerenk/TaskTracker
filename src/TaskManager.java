@@ -15,9 +15,9 @@ public class TaskManager {
     public void saveTasksToFile() {
         StringBuilder sb = new StringBuilder();
         sb.append("[");
-        for(int i =0; i< tasks.size(); i++){
+        for (int i = 0; i < tasks.size(); i++) {
             sb.append(tasks.get(i).toJson());
-            if(i < tasks.size()-1){
+            if (i < tasks.size() - 1) {
                 sb.append(",\n");
             }
         }
@@ -25,10 +25,10 @@ public class TaskManager {
         String jsonArrayString = sb.toString();
 
 
-        try(FileWriter writer = new FileWriter(FILE_NAME)) {
+        try (FileWriter writer = new FileWriter(FILE_NAME)) {
             writer.write(jsonArrayString);
-        }catch (IOException ex){
-            System.out.println("Error writing tasks to file: "+ ex.getMessage());
+        } catch (IOException ex) {
+            System.out.println("Error writing tasks to file: " + ex.getMessage());
         }
     }
 
@@ -58,7 +58,6 @@ public class TaskManager {
             System.out.println("Error reading tasks file: " + e.getMessage());
         }
     }
-
 
 
     //adding
