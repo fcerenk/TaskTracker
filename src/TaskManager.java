@@ -5,35 +5,51 @@ import java.util.List;
 
 
 public class TaskManager {
-    List<String> tasks = new ArrayList<>();
+    List<Task> tasks = new ArrayList<>();
+
+
     //adding
-    public void addTask(String task){
+    public void addTask(Task task) {
         tasks.add(task);
         System.out.println("Adding " + task);
 
     }
 
     //listAll
-    public void listTasks(){
-        for(String task : tasks) {
-            System.out.println(task);
+    public void listTasks() {
+        for (Task task : tasks) {
+            System.out.println("Listing of all tasks: " + task);
         }
     }
+
     //deleting
-    public void removeTask(String task){
-        tasks.remove(task);
+    public void removeTask(int index) {
+        Task task = tasks.remove(index);
+
         System.out.println("Deleting " + task);
 
     }
 
     //updating
-    public  void updateTask(int index,String newTask) {
-        try {
-            tasks.set(index, newTask);
-            System.out.println("Updated task " + (index + 1) + " to: " + newTask);
-        } catch (Exception e) {
-            System.out.println("Invalid command or task number");
-        }
+    public void updateDescription(int index, String newDescription) {
+        Task task = tasks.get(index);
+        task.setDescription(newDescription);
+        System.out.println("Updating " + task);
     }
+
+    //mark as done
+    public void markTaskAsDone(int index) {
+        Task task = tasks.get(index);
+        task.markAsDone();
+        System.out.println("Marking " + task);
+    }
+
+    //mark in progress
+    public void markTaskAsProgress(int index) {
+        Task task = tasks.get(index);
+        task.markAsProgress();
+        System.out.println("Marking " + task);
+    }
+
 
 }
